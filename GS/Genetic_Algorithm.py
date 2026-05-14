@@ -22,7 +22,7 @@
 import numpy as np
 
 
-class MyGS:
+class MyGA:
     """ mini 遗传算法类
     """
 
@@ -58,7 +58,9 @@ class MyGS:
         """计算适应值
             不允许存在负数，若存在负数，考虑整体上移
         """
-        return fitness_function(x)
+        pred = fitness_function(x)
+        # 核心：为了增强选择压，减去最小值。1e-3 防止 sum 为 0
+        return pred - np.min(pred) + 1e-3
 
     def _select(self, fitness, pop):
         """轮盘赌
@@ -78,11 +80,11 @@ class MyGS:
             child = father.copy()
             if np.random.rand() < self.cross_rate:
                 mother = pop[np.random.randint(self.pop_size)]
-                cross_point = np.random.randint(0, self.dna_size)
+                cross_point = np.random.randint(0, self.dna_size * self.dim)
                 child[cross_point:] = mother[cross_point:]
             # 变异
             if np.random.rand() < self.mutation_rate:
-                mutate_point = np.random.randint(0, self.dna_size)
+                mutate_point = np.random.randint(0, self.dna_size * self.dim)
                 child[mutate_point] ^= 1
             new_pop.append(child)
         return np.array(new_pop)
@@ -91,7 +93,7 @@ class MyGS:
         """ 算法实现
         """
         # 1.参数初始化
-        np.random.seed(42)
+        # np.random.seed(42)
         pop = np.random.randint(2, size=(self.pop_size, self.dna_size * self.dim))
         # 2.迭代计算
         for i in range(self.n_generation):
@@ -118,7 +120,7 @@ def FitnessFunction(x):
 
 if __name__ == '__main__':
     # 维度为2测试结果
-    ga = MyGS(dim = 2)
+    ga = MyGA(dim=2)
     limits = np.array([[-5.12, 5.12], [-5.12, 5.12]])
     ga_optimize = ga.optimize(FitnessFunction, limits)
     print(f"最终找到的最优解坐标: {ga_optimize}")
