@@ -1,11 +1,9 @@
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-
 from src.pso_optimizer import MyPSO
 from src.knn_weight_model import MyKNNClassifier
 import numpy as np
 import os
 import pandas as pd
-
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 """ 适应度函数 
 版本 3.1 参数[k值,特征权重w]
 """

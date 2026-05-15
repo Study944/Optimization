@@ -173,7 +173,8 @@ if __name__ == '__main__':
     
     print(f"最优解坐标: {best_solution}")
     print(f"最优适应度: {best_fitness:.6f}")
-    print(f"理论最大值: 0.0 (在点 (0, 0))")
+    print(f"理论最小值: 0.0 (在点 (0, 0))")
+    print(f"理论最大值范围: 约80-100 (在边界附近，如±4.5, ±4.5)")
     
     # ==================== 准备可视化数据 ====================
     f = ObjectiveFunction()
@@ -198,9 +199,9 @@ if __name__ == '__main__':
     ax1.set_title('3D Rastrigin Function Surface', fontsize=14, fontweight='bold')
     fig1.colorbar(surf, ax=ax1, shrink=0.5, aspect=10)
     
-    # 标记理论最大值点 (0, 0, 0)
-    ax1.scatter([0], [0], [0], color='red', s=200, marker='*', 
-               label='Theoretical Max (0, 0, 0)', zorder=5)
+    # 标记全局最小值点 (0, 0, 0)
+    # ax1.scatter([0], [0], [0], color='red', s=200, marker='*',
+    #            label='Global Min (0, 0, 0)', zorder=5)
     ax1.legend(fontsize=10)
     
     # 子图2：等高线图 + 种群最终位置
@@ -217,12 +218,12 @@ if __name__ == '__main__':
                          edgecolors='black', linewidth=1.5, 
                          cmap='hot', label='Population (Final)', zorder=5)
     
-    # 标记全局最优位置
+    # 标记找到的最优位置
     ax2.plot(best_solution[0], best_solution[1], 'm*', markersize=25, 
-            label=f'Best Solution ({best_solution[0]:.2f}, {best_solution[1]:.2f})', zorder=6)
+            label=f'Best Found ({best_solution[0]:.2f}, {best_solution[1]:.2f})', zorder=6)
     
-    # 标记理论最优位置
-    ax2.plot(0, 0, 'r*', markersize=20, label='Theoretical Optimum (0, 0)', zorder=7)
+    # 标记全局最小值位置
+    # ax2.plot(0, 0, 'r*', markersize=20, label='Global Min (0, 0)', zorder=7)
     
     ax2.set_xlabel('X', fontsize=12)
     ax2.set_ylabel('Y', fontsize=12)
@@ -239,10 +240,10 @@ if __name__ == '__main__':
     ax3.plot(generations, ga.avg_fitness_history, 'b--', linewidth=1.5, label='Average Fitness', alpha=0.7)
     ax3.set_xlabel('Generation', fontsize=12)
     ax3.set_ylabel('Fitness', fontsize=12)
-    ax3.set_title('Convergence Curve', fontsize=14, fontweight='bold')
+    ax3.set_title('Convergence Curve (Maximization)', fontsize=14, fontweight='bold')
     ax3.grid(True, alpha=0.3)
-    ax3.axhline(y=0, color='r', linestyle='--', linewidth=1.5, 
-               label='Theoretical Max (0)', alpha=0.7)
+    # ax3.axhline(y=0, color='r', linestyle='--', linewidth=1.5,
+    #            label='Global Min (0)', alpha=0.7)
     ax3.plot(n_generation, best_fitness, 'ro', markersize=10, 
             label=f'Final: {best_fitness:.6f}')
     ax3.legend(fontsize=10)
@@ -267,12 +268,12 @@ if __name__ == '__main__':
                             edgecolors='black', linewidth=1.2, 
                             label=label, zorder=5)
     
-    # 标记全局最优位置
+    # 标记找到的最优位置
     ax.plot(best_solution[0], best_solution[1], 'm*', markersize=25, 
-           label=f'Best Solution', zorder=6)
+           label=f'Best Found', zorder=6)
     
-    # 标记理论最优位置
-    ax.plot(0, 0, 'r*', markersize=20, label='Theoretical Optimum (0, 0)', zorder=7)
+    # 标记全局最小值位置
+    # ax.plot(0, 0, 'r*', markersize=20, label='Global Min (0, 0)', zorder=7)
     
     ax.set_xlabel('X', fontsize=12)
     ax.set_ylabel('Y', fontsize=12)
@@ -299,7 +300,7 @@ if __name__ == '__main__':
                                    edgecolors='black', linewidth=1.5, 
                                    label='Population', zorder=5)
     best_point_anim = ax1_anim.plot([], [], 'm*', markersize=25, label='Best Solution')[0]
-    theoretical_point = ax1_anim.plot(0, 0, 'r*', markersize=20, label='Theoretical Optimum')[0]
+    theoretical_point = ax1_anim.plot(0, 0, 'r*', markersize=20, label='Global Min')[0]
     
     ax1_anim.set_xlabel('X', fontsize=12)
     ax1_anim.set_ylabel('Y', fontsize=12)
@@ -317,12 +318,12 @@ if __name__ == '__main__':
     line_best_anim, = ax2_anim.plot([], [], 'g-', linewidth=2.5, label='Best Fitness')
     line_avg_anim, = ax2_anim.plot([], [], 'b--', linewidth=1.5, label='Average Fitness', alpha=0.7)
     best_point_anim2 = ax2_anim.plot([], [], 'ro', markersize=10, label='Current Best')[0]
-    theoretical_line = ax2_anim.axhline(y=0, color='r', linestyle='--', linewidth=1.5, 
-                                       label='Theoretical Max (0)', alpha=0.7)
-    
+    # theoretical_line = ax2_anim.axhline(y=0, color='r', linestyle='--', linewidth=1.5,
+    #                                    label='Global Min (0)', alpha=0.7)
+    #
     ax2_anim.set_xlabel('Generation', fontsize=12)
     ax2_anim.set_ylabel('Fitness', fontsize=12)
-    ax2_anim.set_title('Convergence Process', fontsize=14, fontweight='bold')
+    ax2_anim.set_title('Convergence Process (Maximization)', fontsize=14, fontweight='bold')
     ax2_anim.legend(fontsize=10)
     ax2_anim.grid(True, alpha=0.3)
     ax2_anim.set_xlim(0, n_generation)
@@ -381,7 +382,8 @@ if __name__ == '__main__':
         text2_anim.set_text(f'Current Generation: {current_gen}\n'
                            f'Best Fitness: {best_history[-1]:.6f}\n'
                            f'Avg Fitness: {avg_history[-1]:.6f}\n'
-                           f'Theoretical Max: 0.0')
+                           f'Global Min: 0.0\n'
+                           f'Max Range: ~80-100')
         
         return scatter_anim, best_point_anim, line_best_anim, line_avg_anim, best_point_anim2, text1_anim, text2_anim
     
@@ -391,3 +393,4 @@ if __name__ == '__main__':
     
     print('动画生成完成！')
     plt.show()
+

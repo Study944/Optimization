@@ -63,10 +63,11 @@ class MyGA:
         return pred - np.min(pred) + 1e-3
 
     def _select(self, fitness, pop):
-        """轮盘赌
+        """选择（轮盘赌）
             按照概率选择保留的解
         """
-        idx = np.random.choice(np.arange(self.pop_size), size=self.pop_size, replace=True, p=fitness / fitness.sum())
+        idx = np.random.choice(np.arange(self.pop_size), size=self.pop_size,
+                               replace=True, p=fitness / fitness.sum())
         return pop[idx]
 
     def _evolve(self, pop):
