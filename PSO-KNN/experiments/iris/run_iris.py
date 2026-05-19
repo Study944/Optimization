@@ -1,5 +1,6 @@
-from sklearn.preprocessing import StandardScaler
 
+
+from sklearn.preprocessing import StandardScaler
 from src.pso_optimizer import MyPSO
 from src.knn_model import MyKNNClassifier
 from sklearn.datasets import load_iris
@@ -8,9 +9,11 @@ import numpy as np
 """ 适应度函数 
 版本 1.1 参数[k]
 """
-def create_objective_func(X, y):
 
+
+def create_objective_func(X, y):
     """创建适应度函数（优化目标）"""
+
     def objective_func(params):
         # 1.解析参数
         k = int(np.round(params[0]))  # 四舍五入转为整数
@@ -22,6 +25,7 @@ def create_objective_func(X, y):
         accuracy = knn.fit_predict_cv(X, y, cv=4)
         # 4.返回错误率（默认最小化）
         return 1 - accuracy
+
     return objective_func
 
 

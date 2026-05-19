@@ -57,16 +57,21 @@ class MyKNNClassifier:
     # 预测函数 , 返回预测值
     def predict(self, X):
         label_list = []
+        # 特征权重添加
+        if self.weights is not None:
+            X_Search = self.weights * X
+        else :
+            X_Search = X
         # 暴力搜索
         if self.tree is None:
-            for x in X:
+            for x in X_Search:
                 distance = np.array([self._distance(x, x_train) for x_train in self.X_train])
                 k_ind = np.argsort(distance)[:self.k]
                 k_labels = self.y_train[k_ind]
                 label_list.append(int(np.bincount(k_labels).argmax()))
         # kdtree和balltree - 批量查询
         else:
-            _, k_ind = self.tree.query(X, k=self.k)
+            _, k_ind = self.tree.query(X_Search, k=self.k)
             for i in range(len(X)):
                 k_labels = self.y_train[k_ind[i]]
                 label_list.append(int(np.bincount(k_labels).argmax()))

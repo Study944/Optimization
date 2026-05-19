@@ -61,6 +61,7 @@ class MyGA:
         pred = fitness_function(x)
         # 核心：为了增强选择压，减去最小值。1e-3 防止 sum 为 0
         return pred - np.min(pred) + 1e-3
+        # return np.max(pred)-pred + 1e-3
 
     def _select(self, fitness, pop):
         """选择（轮盘赌）

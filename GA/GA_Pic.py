@@ -190,48 +190,48 @@ if __name__ == '__main__':
     
     fig1 = plt.figure(figsize=(18, 6))
     
-    # 子图1：3D目标函数曲面图
-    ax1 = fig1.add_subplot(131, projection='3d')
-    surf = ax1.plot_surface(X, Y, Z, cmap='viridis', alpha=0.8, edgecolor='none')
-    ax1.set_xlabel('X', fontsize=12)
-    ax1.set_ylabel('Y', fontsize=12)
-    ax1.set_zlabel('f(X, Y)', fontsize=12)
-    ax1.set_title('3D Rastrigin Function Surface', fontsize=14, fontweight='bold')
-    fig1.colorbar(surf, ax=ax1, shrink=0.5, aspect=10)
-    
-    # 标记全局最小值点 (0, 0, 0)
-    # ax1.scatter([0], [0], [0], color='red', s=200, marker='*',
-    #            label='Global Min (0, 0, 0)', zorder=5)
-    ax1.legend(fontsize=10)
-    
-    # 子图2：等高线图 + 种群最终位置
-    ax2 = fig1.add_subplot(132)
-    contour = ax2.contourf(X, Y, Z, levels=50, cmap='viridis')
-    contour_lines = ax2.contour(X, Y, Z, levels=20, colors='white', linewidths=0.5, alpha=0.5)
-    fig1.colorbar(contour, ax=ax2)
-    
-    # 显示最终种群位置
-    final_population = np.array(ga.population_history[-1])
-    final_fitness = f(final_population)
-    scatter = ax2.scatter(final_population[:, 0], final_population[:, 1], 
-                         c=final_fitness, s=100, alpha=0.7, 
-                         edgecolors='black', linewidth=1.5, 
-                         cmap='hot', label='Population (Final)', zorder=5)
-    
-    # 标记找到的最优位置
-    ax2.plot(best_solution[0], best_solution[1], 'm*', markersize=25, 
-            label=f'Best Found ({best_solution[0]:.2f}, {best_solution[1]:.2f})', zorder=6)
-    
-    # 标记全局最小值位置
-    # ax2.plot(0, 0, 'r*', markersize=20, label='Global Min (0, 0)', zorder=7)
-    
-    ax2.set_xlabel('X', fontsize=12)
-    ax2.set_ylabel('Y', fontsize=12)
-    ax2.set_title('Population Distribution on Contour Map', fontsize=14, fontweight='bold')
-    ax2.legend(fontsize=10, loc='upper right')
-    ax2.grid(True, alpha=0.3)
-    ax2.set_xlim(limits[0, 0], limits[0, 1])
-    ax2.set_ylim(limits[1, 0], limits[1, 1])
+    # # 子图1：3D目标函数曲面图
+    # ax1 = fig1.add_subplot(131, projection='3d')
+    # surf = ax1.plot_surface(X, Y, Z, cmap='viridis', alpha=0.8, edgecolor='none')
+    # ax1.set_xlabel('X', fontsize=12)
+    # ax1.set_ylabel('Y', fontsize=12)
+    # ax1.set_zlabel('f(X, Y)', fontsize=12)
+    # ax1.set_title('3D Rastrigin Function Surface', fontsize=14, fontweight='bold')
+    # fig1.colorbar(surf, ax=ax1, shrink=0.5, aspect=10)
+    #
+    # # 标记全局最小值点 (0, 0, 0)
+    # # ax1.scatter([0], [0], [0], color='red', s=200, marker='*',
+    # #            label='Global Min (0, 0, 0)', zorder=5)
+    # ax1.legend(fontsize=10)
+    #
+    # # 子图2：等高线图 + 种群最终位置
+    # ax2 = fig1.add_subplot(132)
+    # contour = ax2.contourf(X, Y, Z, levels=50, cmap='viridis')
+    # contour_lines = ax2.contour(X, Y, Z, levels=20, colors='white', linewidths=0.5, alpha=0.5)
+    # fig1.colorbar(contour, ax=ax2)
+    #
+    # # 显示最终种群位置
+    # final_population = np.array(ga.population_history[-1])
+    # final_fitness = f(final_population)
+    # scatter = ax2.scatter(final_population[:, 0], final_population[:, 1],
+    #                      c=final_fitness, s=100, alpha=0.7,
+    #                      edgecolors='black', linewidth=1.5,
+    #                      cmap='hot', label='Population (Final)', zorder=5)
+    #
+    # # 标记找到的最优位置
+    # ax2.plot(best_solution[0], best_solution[1], 'm*', markersize=25,
+    #         label=f'Best Found ({best_solution[0]:.2f}, {best_solution[1]:.2f})', zorder=6)
+    #
+    # # 标记全局最小值位置
+    # # ax2.plot(0, 0, 'r*', markersize=20, label='Global Min (0, 0)', zorder=7)
+    #
+    # ax2.set_xlabel('X', fontsize=12)
+    # ax2.set_ylabel('Y', fontsize=12)
+    # ax2.set_title('Population Distribution on Contour Map', fontsize=14, fontweight='bold')
+    # ax2.legend(fontsize=10, loc='upper right')
+    # ax2.grid(True, alpha=0.3)
+    # ax2.set_xlim(limits[0, 0], limits[0, 1])
+    # ax2.set_ylim(limits[1, 0], limits[1, 1])
     
     # 子图3：收敛曲线
     ax3 = fig1.add_subplot(133)
@@ -251,146 +251,146 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.show()
     
-    # ==================== 图2：种群在不同代数的位置分布 ====================
-    fig2, ax = plt.subplots(1, 1, figsize=(10, 8))
-    
-    ax.contourf(X, Y, Z, levels=50, cmap='viridis', alpha=0.6)
-    
-    colors = ['red', 'orange', 'green']
-    labels = ['Initial', 'Middle', 'Final']
-    indices = [0, n_generation // 2, n_generation - 1]
-    
-    for idx, color, label in zip(indices, colors, labels):
-        positions = np.array(ga.population_history[idx])
-        fitness = f(positions)
-        scatter = ax.scatter(positions[:, 0], positions[:, 1], 
-                            c=color, s=80, alpha=0.6, 
-                            edgecolors='black', linewidth=1.2, 
-                            label=label, zorder=5)
-    
-    # 标记找到的最优位置
-    ax.plot(best_solution[0], best_solution[1], 'm*', markersize=25, 
-           label=f'Best Found', zorder=6)
-    
-    # 标记全局最小值位置
-    # ax.plot(0, 0, 'r*', markersize=20, label='Global Min (0, 0)', zorder=7)
-    
-    ax.set_xlabel('X', fontsize=12)
-    ax.set_ylabel('Y', fontsize=12)
-    ax.set_title('Population Evolution Distribution', fontsize=14, fontweight='bold')
-    ax.legend(fontsize=10, loc='upper right')
-    ax.grid(True, alpha=0.3)
-    ax.set_xlim(limits[0, 0], limits[0, 1])
-    ax.set_ylim(limits[1, 0], limits[1, 1])
-    
-    plt.tight_layout()
-    plt.show()
-
-    # ==================== 图3：动态动画 ====================
-    print('\n正在生成动态动画...')
-    
-    fig_anim, (ax1_anim, ax2_anim) = plt.subplots(1, 2, figsize=(18, 7))
-    
-    # 左图：等高线图 + 种群移动
-    contour_anim = ax1_anim.contourf(X, Y, Z, levels=50, cmap='viridis', alpha=0.7)
-    contour_lines = ax1_anim.contour(X, Y, Z, levels=15, colors='white', linewidths=0.3, alpha=0.4)
-    fig_anim.colorbar(contour_anim, ax=ax1_anim, shrink=0.8)
-    
-    scatter_anim = ax1_anim.scatter([], [], c='red', s=120, alpha=0.8, 
-                                   edgecolors='black', linewidth=1.5, 
-                                   label='Population', zorder=5)
-    best_point_anim = ax1_anim.plot([], [], 'm*', markersize=25, label='Best Solution')[0]
-    theoretical_point = ax1_anim.plot(0, 0, 'r*', markersize=20, label='Global Min')[0]
-    
-    ax1_anim.set_xlabel('X', fontsize=12)
-    ax1_anim.set_ylabel('Y', fontsize=12)
-    ax1_anim.set_title('GA Population Evolution Animation (Rastrigin)', fontsize=14, fontweight='bold')
-    ax1_anim.legend(fontsize=10, loc='upper right')
-    ax1_anim.grid(True, alpha=0.3)
-    ax1_anim.set_xlim(limits[0, 0], limits[0, 1])
-    ax1_anim.set_ylim(limits[1, 0], limits[1, 1])
-    
-    text1_anim = ax1_anim.text(0.02, 0.98, '', transform=ax1_anim.transAxes, fontsize=10,
-                              verticalalignment='top', 
-                              bbox=dict(boxstyle='round,pad=0.5', facecolor='yellow', alpha=0.8))
-    
-    # 右图：收敛曲线
-    line_best_anim, = ax2_anim.plot([], [], 'g-', linewidth=2.5, label='Best Fitness')
-    line_avg_anim, = ax2_anim.plot([], [], 'b--', linewidth=1.5, label='Average Fitness', alpha=0.7)
-    best_point_anim2 = ax2_anim.plot([], [], 'ro', markersize=10, label='Current Best')[0]
-    # theoretical_line = ax2_anim.axhline(y=0, color='r', linestyle='--', linewidth=1.5,
-    #                                    label='Global Min (0)', alpha=0.7)
+    # # ==================== 图2：种群在不同代数的位置分布 ====================
+    # fig2, ax = plt.subplots(1, 1, figsize=(10, 8))
     #
-    ax2_anim.set_xlabel('Generation', fontsize=12)
-    ax2_anim.set_ylabel('Fitness', fontsize=12)
-    ax2_anim.set_title('Convergence Process (Maximization)', fontsize=14, fontweight='bold')
-    ax2_anim.legend(fontsize=10)
-    ax2_anim.grid(True, alpha=0.3)
-    ax2_anim.set_xlim(0, n_generation)
+    # ax.contourf(X, Y, Z, levels=50, cmap='viridis', alpha=0.6)
+    #
+    # colors = ['red', 'orange', 'green']
+    # labels = ['Initial', 'Middle', 'Final']
+    # indices = [0, n_generation // 2, n_generation - 1]
+    #
+    # for idx, color, label in zip(indices, colors, labels):
+    #     positions = np.array(ga.population_history[idx])
+    #     fitness = f(positions)
+    #     scatter = ax.scatter(positions[:, 0], positions[:, 1],
+    #                         c=color, s=80, alpha=0.6,
+    #                         edgecolors='black', linewidth=1.2,
+    #                         label=label, zorder=5)
+    #
+    # # 标记找到的最优位置
+    # ax.plot(best_solution[0], best_solution[1], 'm*', markersize=25,
+    #        label=f'Best Found', zorder=6)
+    #
+    # # 标记全局最小值位置
+    # # ax.plot(0, 0, 'r*', markersize=20, label='Global Min (0, 0)', zorder=7)
+    #
+    # ax.set_xlabel('X', fontsize=12)
+    # ax.set_ylabel('Y', fontsize=12)
+    # ax.set_title('Population Evolution Distribution', fontsize=14, fontweight='bold')
+    # ax.legend(fontsize=10, loc='upper right')
+    # ax.grid(True, alpha=0.3)
+    # ax.set_xlim(limits[0, 0], limits[0, 1])
+    # ax.set_ylim(limits[1, 0], limits[1, 1])
+    #
+    # plt.tight_layout()
+    # plt.show()
+    #
+    # # ==================== 图3：动态动画 ====================
+    # print('\n正在生成动态动画...')
+    #
+    # fig_anim, (ax1_anim, ax2_anim) = plt.subplots(1, 2, figsize=(18, 7))
+    #
+    # # 左图：等高线图 + 种群移动
+    # contour_anim = ax1_anim.contourf(X, Y, Z, levels=50, cmap='viridis', alpha=0.7)
+    # contour_lines = ax1_anim.contour(X, Y, Z, levels=15, colors='white', linewidths=0.3, alpha=0.4)
+    # fig_anim.colorbar(contour_anim, ax=ax1_anim, shrink=0.8)
+    #
+    # scatter_anim = ax1_anim.scatter([], [], c='red', s=120, alpha=0.8,
+    #                                edgecolors='black', linewidth=1.5,
+    #                                label='Population', zorder=5)
+    # best_point_anim = ax1_anim.plot([], [], 'm*', markersize=25, label='Best Solution')[0]
+    # theoretical_point = ax1_anim.plot(0, 0, 'r*', markersize=20, label='Global Min')[0]
+    #
+    # ax1_anim.set_xlabel('X', fontsize=12)
+    # ax1_anim.set_ylabel('Y', fontsize=12)
+    # ax1_anim.set_title('GA Population Evolution Animation (Rastrigin)', fontsize=14, fontweight='bold')
+    # ax1_anim.legend(fontsize=10, loc='upper right')
+    # ax1_anim.grid(True, alpha=0.3)
+    # ax1_anim.set_xlim(limits[0, 0], limits[0, 1])
+    # ax1_anim.set_ylim(limits[1, 0], limits[1, 1])
+    #
+    # text1_anim = ax1_anim.text(0.02, 0.98, '', transform=ax1_anim.transAxes, fontsize=10,
+    #                           verticalalignment='top',
+    #                           bbox=dict(boxstyle='round,pad=0.5', facecolor='yellow', alpha=0.8))
+    #
+    # # 右图：收敛曲线
+    # line_best_anim, = ax2_anim.plot([], [], 'g-', linewidth=2.5, label='Best Fitness')
+    # line_avg_anim, = ax2_anim.plot([], [], 'b--', linewidth=1.5, label='Average Fitness', alpha=0.7)
+    # best_point_anim2 = ax2_anim.plot([], [], 'ro', markersize=10, label='Current Best')[0]
+    # # theoretical_line = ax2_anim.axhline(y=0, color='r', linestyle='--', linewidth=1.5,
+    # #                                    label='Global Min (0)', alpha=0.7)
+    # #
+    # ax2_anim.set_xlabel('Generation', fontsize=12)
+    # ax2_anim.set_ylabel('Fitness', fontsize=12)
+    # ax2_anim.set_title('Convergence Process (Maximization)', fontsize=14, fontweight='bold')
+    # ax2_anim.legend(fontsize=10)
+    # ax2_anim.grid(True, alpha=0.3)
+    # ax2_anim.set_xlim(0, n_generation)
+    #
+    # text2_anim = ax2_anim.text(0.02, 0.98, '', transform=ax2_anim.transAxes, fontsize=10,
+    #                           verticalalignment='top',
+    #                           bbox=dict(boxstyle='round,pad=0.5', facecolor='lightblue', alpha=0.8))
     
-    text2_anim = ax2_anim.text(0.02, 0.98, '', transform=ax2_anim.transAxes, fontsize=10,
-                              verticalalignment='top',
-                              bbox=dict(boxstyle='round,pad=0.5', facecolor='lightblue', alpha=0.8))
-    
-    def init():
-        """初始化动画"""
-        scatter_anim.set_offsets(np.empty((0, 2)))
-        best_point_anim.set_data([], [])
-        line_best_anim.set_data([], [])
-        line_avg_anim.set_data([], [])
-        best_point_anim2.set_data([], [])
-        text1_anim.set_text('')
-        text2_anim.set_text('')
-        return scatter_anim, best_point_anim, line_best_anim, line_avg_anim, best_point_anim2, text1_anim, text2_anim
-    
-    def animate(frame):
-        """动画更新函数"""
-        current_gen = frame + 1
-        
-        # 更新左图：种群位置
-        positions = np.array(ga.population_history[frame])
-        fitness = f(positions)
-        scatter_anim.set_offsets(positions)
-        
-        # 更新最优点
-        best_idx = np.argmax(fitness)
-        best_x = positions[best_idx, 0]
-        best_y = positions[best_idx, 1]
-        best_point_anim.set_data([best_x], [best_y])
-        
-        # 更新文本信息
-        text1_anim.set_text(f'Generation: {current_gen}/{n_generation}\n'
-                           f'Population: {pop_size}\n'
-                           f'Current Best:\n'
-                           f'  x={best_x:.4f}, y={best_y:.4f}\n'
-                           f'  f(x,y)={np.max(fitness):.6f}')
-        
-        # 更新右图：收敛曲线
-        gens = np.arange(1, current_gen + 1)
-        best_history = np.array(ga.best_fitness_history[:current_gen])
-        avg_history = np.array(ga.avg_fitness_history[:current_gen])
-        line_best_anim.set_data(gens, best_history)
-        line_avg_anim.set_data(gens, avg_history)
-        best_point_anim2.set_data([current_gen], [best_history[-1]])
-        
-        # 动态调整y轴范围
-        margin = abs(np.max(best_history) - np.min(best_history)) * 0.1
-        if margin < 1:
-            margin = 1
-        ax2_anim.set_ylim(np.min(best_history) - margin, np.max(best_history) + margin)
-        
-        text2_anim.set_text(f'Current Generation: {current_gen}\n'
-                           f'Best Fitness: {best_history[-1]:.6f}\n'
-                           f'Avg Fitness: {avg_history[-1]:.6f}\n'
-                           f'Global Min: 0.0\n'
-                           f'Max Range: ~80-100')
-        
-        return scatter_anim, best_point_anim, line_best_anim, line_avg_anim, best_point_anim2, text1_anim, text2_anim
-    
-    # 创建动画
-    anim = FuncAnimation(fig_anim, animate, init_func=init,
-                        frames=n_generation, interval=100, blit=True, repeat=False)
-    
-    print('动画生成完成！')
-    plt.show()
+    # def init():
+    #     """初始化动画"""
+    #     scatter_anim.set_offsets(np.empty((0, 2)))
+    #     best_point_anim.set_data([], [])
+    #     line_best_anim.set_data([], [])
+    #     line_avg_anim.set_data([], [])
+    #     best_point_anim2.set_data([], [])
+    #     text1_anim.set_text('')
+    #     text2_anim.set_text('')
+    #     return scatter_anim, best_point_anim, line_best_anim, line_avg_anim, best_point_anim2, text1_anim, text2_anim
+    #
+    # def animate(frame):
+    #     """动画更新函数"""
+    #     current_gen = frame + 1
+    #
+    #     # 更新左图：种群位置
+    #     positions = np.array(ga.population_history[frame])
+    #     fitness = f(positions)
+    #     scatter_anim.set_offsets(positions)
+    #
+    #     # 更新最优点
+    #     best_idx = np.argmax(fitness)
+    #     best_x = positions[best_idx, 0]
+    #     best_y = positions[best_idx, 1]
+    #     best_point_anim.set_data([best_x], [best_y])
+    #
+    #     # 更新文本信息
+    #     text1_anim.set_text(f'Generation: {current_gen}/{n_generation}\n'
+    #                        f'Population: {pop_size}\n'
+    #                        f'Current Best:\n'
+    #                        f'  x={best_x:.4f}, y={best_y:.4f}\n'
+    #                        f'  f(x,y)={np.max(fitness):.6f}')
+    #
+    #     # 更新右图：收敛曲线
+    #     gens = np.arange(1, current_gen + 1)
+    #     best_history = np.array(ga.best_fitness_history[:current_gen])
+    #     avg_history = np.array(ga.avg_fitness_history[:current_gen])
+    #     line_best_anim.set_data(gens, best_history)
+    #     line_avg_anim.set_data(gens, avg_history)
+    #     best_point_anim2.set_data([current_gen], [best_history[-1]])
+    #
+    #     # 动态调整y轴范围
+    #     margin = abs(np.max(best_history) - np.min(best_history)) * 0.1
+    #     if margin < 1:
+    #         margin = 1
+    #     ax2_anim.set_ylim(np.min(best_history) - margin, np.max(best_history) + margin)
+    #
+    #     text2_anim.set_text(f'Current Generation: {current_gen}\n'
+    #                        f'Best Fitness: {best_history[-1]:.6f}\n'
+    #                        f'Avg Fitness: {avg_history[-1]:.6f}\n'
+    #                        f'Global Min: 0.0\n'
+    #                        f'Max Range: ~80-100')
+    #
+    #     return scatter_anim, best_point_anim, line_best_anim, line_avg_anim, best_point_anim2, text1_anim, text2_anim
+    #
+    # # 创建动画
+    # anim = FuncAnimation(fig_anim, animate, init_func=init,
+    #                     frames=n_generation, interval=100, blit=True, repeat=False)
+    #
+    # print('动画生成完成！')
+    # plt.show()
 

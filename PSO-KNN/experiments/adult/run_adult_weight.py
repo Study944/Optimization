@@ -24,8 +24,8 @@ def create_objective_func(X, y):
         accuracy = knn.fit_predict_cv(X, y, cv=4)
         # 4.返回错误率（默认最小化）
         # 添加惩罚系数避免过拟合
-        # penalty = 0.1 * (np.sum(w) / len(w))
-        return 1 - accuracy
+        penalty = 0.01 * (np.sum(w) / len(w))
+        return 1 - accuracy + penalty
 
     return objective_func
 
