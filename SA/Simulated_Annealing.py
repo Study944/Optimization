@@ -90,7 +90,6 @@ class SA:
         self.fitness_history = [fitness]
         self.x_history = [np.copy(x)]
 
-
         # 2.迭代计算
         while template > self.t_end:
             # 外层循环控制 步长
@@ -124,7 +123,6 @@ class SA:
 
             # 更新温度
             template *= self.alpha
-
 
         return x_best, fitness_best
 
@@ -194,4 +192,4 @@ if __name__ == "__main__":
     plt.ylim(-5.12, 5.12)
     plt.legend(loc='lower left')
     plt.tight_layout()
-    # plt.show()
+    plt.show()
