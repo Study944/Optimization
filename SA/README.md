@@ -1,5 +1,7 @@
 2026/5/23 
 
+## Rsatrigin问题
+
 ### mini-SA
 
 模拟退火算法 SA （Simulated Annealing）
@@ -57,3 +59,11 @@
 - 记录最优适应度方法2：记录每一次迭代中所有种子的最优适应度，会有概率 P 往上走，曲线震荡
 
 <img alt="并行退火全局最优（震荡）.png" height="70%" src="img/%E5%B9%B6%E8%A1%8C%E9%80%80%E7%81%AB%E5%85%A8%E5%B1%80%E6%9C%80%E4%BC%98%EF%BC%88%E9%9C%87%E8%8D%A1%EF%BC%89.png" width="70%"/>
+
+
+
+## TSP问题
+
+模拟退火算法经典问题 TSP 旅行商问题，寻找一个回路的最短路径。
+
+<img alt="最优路线.png" height="70%" src="img/%E6%9C%80%E4%BC%98%E8%B7%AF%E7%BA%BF.png" width="70%"/>
