@@ -67,3 +67,7 @@
 模拟退火算法经典问题 TSP 旅行商问题，寻找一个回路的最短路径。
 
 <img alt="最优路线.png" height="70%" src="img/%E6%9C%80%E4%BC%98%E8%B7%AF%E7%BA%BF.png" width="70%"/>
+
+仅使用 逆序算子 后期优化效果有限，使用混合策略 交换算子 + 逆序算子（2 ：8）增加后期的优化效果。
+
+<img alt="混合策略最优路线.png" height="70%" src="img/%E6%B7%B7%E5%90%88%E7%AD%96%E7%95%A5%E6%9C%80%E4%BC%98%E8%B7%AF%E7%BA%BF.png" width="70%"/>

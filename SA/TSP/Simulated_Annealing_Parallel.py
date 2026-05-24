@@ -64,11 +64,27 @@ class SA_Parallel:
         max_span = max(15, int(step_size))
         x_new = np.copy(x)
 
+        # 交换算子0.2+逆序算子0.8
         for s in range(self.m_seeds):
-            span = np.random.randint(2, max_span + 1) # 随机翻转区间长度
-            start_idx = np.random.randint(0, self.num_cities - span + 1) # 随机区间开始位置
-            end_idx = start_idx + span
-            x_new[s, start_idx:end_idx] = x_new[s, start_idx:end_idx][::-1]
+            if np.random.rand() < 0.8:
+                # ------ 策略 1：逆序算子（保持你测试出的保底 15 跨度） ------
+                span = np.random.randint(2, max_span + 1)
+                start_idx = np.random.randint(0, self.num_cities - span + 1)
+                end_idx = start_idx + span
+                x_new[s, start_idx:end_idx] = x_new[s, start_idx:end_idx][::-1]
+            else:
+                # ------ 策略 2：基于步长约束的交换算子 ------
+                # 随机选第一个城市
+                idx1 = np.random.randint(0, self.num_cities)
+                # 第二个城市不能离得太远，受当前步长限制（后期退化为近邻交换，极其精准）
+                max_swap_dist = max(2, int(step_size * 0.5))
+                swap_dist = np.random.randint(1, max_swap_dist + 1)
+
+                # 环形边界处理（防止越界）
+                idx2 = (idx1 + swap_dist) % self.num_cities
+
+                # 执行硬交换
+                x_new[s, idx1], x_new[s, idx2] = x_new[s, idx2], x_new[s, idx1]
 
         return x_new
 
