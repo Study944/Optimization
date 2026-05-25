@@ -147,7 +147,7 @@ class SA_Parallel:
 
 
 if __name__ == "__main__":
-    # 1. 填入你上一轮拿到的 berlin52 52个坐标
+    # 1. berlin52数据集 52个坐标
     coords = np.array([[565.0, 575.0], [25.0, 185.0], [345.0, 750.0], [945.0, 685.0], [845.0, 655.0],
                        [880.0, 660.0], [25.0, 230.0], [525.0, 1000.0], [580.0, 1175.0], [650.0, 1130.0],
                        [1605.0, 620.0], [1220.0, 580.0], [1465.0, 200.0], [1530.0, 5.0], [845.0, 680.0],
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     num_cities = len(coords)
     dist_matrix = np.sqrt(np.sum((coords[:, np.newaxis, :] - coords[np.newaxis, :, :]) ** 2, axis=-1))
 
-    # 3. 实例化算法（开启 8 匹马同时赛马并行退火）
+    # 3. 实例化算法
     sa_tsp = SA_Parallel(L=300, m_seeds=12, alpha=0.98)
     x_best, dist_best = sa_tsp.optimize(dist_matrix)
 

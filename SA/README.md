@@ -71,3 +71,10 @@
 仅使用 逆序算子 后期优化效果有限，使用混合策略 交换算子 + 逆序算子（2 ：8）增加后期的优化效果。
 
 <img alt="混合策略最优路线.png" height="70%" src="img/%E6%B7%B7%E5%90%88%E7%AD%96%E7%95%A5%E6%9C%80%E4%BC%98%E8%B7%AF%E7%BA%BF.png" width="70%"/>
+
+
+## 参数实验
+
+<img alt="冷却率.png" height="70%" src="img/%E5%86%B7%E5%8D%B4%E7%8E%87.png" width="70%"/>
+
+<img alt="接受概率.png" height="70%" src="img/%E6%8E%A5%E5%8F%97%E6%A6%82%E7%8E%87.png" width="70%"/>
